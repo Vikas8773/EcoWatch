@@ -1,0 +1,204 @@
+
+
+<!--{% load static %}-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Deforestation Analysis Results</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+<!--            background-color: #f4f7f9;-->
+<!--            color: #333;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 800px;-->
+<!--            margin: 50px auto;-->
+<!--            background-color: #ffffff;-->
+<!--            padding: 30px;-->
+<!--            border-radius: 12px;-->
+<!--            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            color: #2f855a;-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        p {-->
+<!--            font-size: 18px;-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        ul {-->
+<!--            list-style: none;-->
+<!--            padding: 0;-->
+<!--            font-size: 18px;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        ul li {-->
+<!--            margin-bottom: 10px;-->
+<!--            padding-left: 24px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        ul li::before {-->
+<!--            content: '✔';-->
+<!--            color: #38a169;-->
+<!--            position: absolute;-->
+<!--            left: 0;-->
+<!--        }-->
+
+<!--        img {-->
+<!--            display: block;-->
+<!--            max-width: 100%;-->
+<!--            height: auto;-->
+<!--            border-radius: 8px;-->
+<!--            margin: 0 auto 30px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);-->
+<!--        }-->
+
+<!--        a {-->
+<!--            display: inline-block;-->
+<!--            background-color: #2b6cb0;-->
+<!--            color: white;-->
+<!--            padding: 10px 20px;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 6px;-->
+<!--            font-size: 16px;-->
+<!--            margin-top: 20px;-->
+<!--            transition: background-color 0.3s ease;-->
+<!--        }-->
+
+<!--        a:hover {-->
+<!--            background-color: #2c5282;-->
+<!--        }-->
+
+<!--        .download-section {-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h2>🌲 Deforestation Analysis Results</h2>-->
+
+<!--        <p><strong>Location:</strong> {{ location }}</p>-->
+
+<!--        <ul>-->
+<!--            <li>🌿 Vegetation Gain: {{ gain_area }} sq km</li>-->
+<!--            <li>🔥 Vegetation Loss: {{ loss_area }} sq km</li>-->
+<!--            <li>⚪ No Change: {{ no_change_area }} sq km</li>-->
+<!--            {% if water_area %}-->
+<!--                <li>💧 Water Bodies: {{ water_area }} sq km</li>-->
+<!--            {% endif %}-->
+<!--        </ul>-->
+
+<!--        {% if year_range %}-->
+<!--            <h3>🗓️ Change Detection Map ({{ year_range }})</h3>-->
+<!--        {% endif %}-->
+
+<!--        {% if visual_url %}-->
+<!--            <img src="{{ visual_url }}" alt="Change Detection Map">-->
+<!--        {% endif %}-->
+
+<!--        <div class="download-section">-->
+<!--            {% if visual_url %}-->
+<!--                <a href="{{ visual_url }}" download>🖼️ Download Result</a>-->
+<!--            {% endif %}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Analysis Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'analyze_changes.css' %}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main' %}">ABOUT</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}">DASHBOARD</a></li>
+                        <li><a href="{% url 'dataset' %}">DATASET</a></li>
+                        <li><a href="{% url 'predict' %}">FOREST MONITORING</a></li>
+                        <li><a href="{% url 'report' %}">REPORT</a></li>
+                        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% else %}
+                        <li><a href="{% url 'auth' %}">LOGIN</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>🌳 Forest Analysis Results</h1>
+        <p style="text-align: center;"><strong>Location:</strong> {{ location }}</p>
+        <!-- Image Comparison Section -->
+        <div class="image-comparison">
+            <div class="image-card">
+                <div class="image-label">Earlier Image ({{ earlier_year }})</div>
+                <img src="{{ ndvi_image1_url }}" alt="Earlier Image">
+            </div>
+
+            <div class="image-card">
+                <div class="image-label">Later Image ({{ later_year }})</div>
+                <img src="{{ ndvi_image2_url }}" alt="Later Image">
+            </div>
+
+            <div class="image-card">
+                <div class="image-label">Change Detection ({{ year_range }})</div>
+                <img src="{{ visual_url }}" alt="Result Map">
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card vegetation">
+                <div class="stat-icon">🌿</div>
+                <div class="stat-title">Vegetation Gain</div>
+                <div class="stat-value">{{ gain_area }} sq km</div>
+            </div>
+
+            <div class="stat-card deforestation">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-title">Deforestation Loss</div>
+                <div class="stat-value">{{ loss_area }} sq km</div>
+            </div>
+
+            {% if water_area %}
+            <div class="stat-card water">
+                <div class="stat-icon">💧</div>
+                <div class="stat-title">Water Bodies</div>
+                <div class="stat-value">{{ water_area }} sq km</div>
+            </div>
+            {% endif %}
+
+            <div class="stat-card no-change">
+                <div class="stat-icon">⚪</div>
+                <div class="stat-title">No Change</div>
+                <div class="stat-value">{{ no_change_area }} sq km</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

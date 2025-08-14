@@ -1,0 +1,66 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Insights</title>
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main' %}">ABOUT</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}">DASHBOARD</a></li>
+                        <li><a href="{% url 'dataset' %}">DATASET</a></li>
+                        <li><a href="{% url 'predict' %}">FOREST MONITORING</a></li>
+                        <li><a href="{% url 'report' %}">REPORT</a></li>
+                        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% else %}
+                        <li><a href="{% url 'auth' %}">LOGIN</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+            <section class="filter-bar">
+    <h2 style="font-size:45px; color: white;">| Dashboard</h2>
+    <div class="dropdowns">
+        <select id="areaSelect" onchange="switchDashboard()">
+            <option value="default">Choose Area</option>
+            <option value="Igatpuri" selected>Igatpuri</option>
+            <option value="Anjaneri">Anjaneri</option>
+        </select>
+    </div>
+</section>
+
+
+    <iframe id="dashboard-frame" width="1600" height="900"
+      src="https://lookerstudio.google.com/embed/reporting/a86f9811-8032-44cb-bbc1-d5e74fd11e58/page/aJ40E"
+      allowfullscreen
+      sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+    </iframe>
+  </main>
+
+  <script>
+    function switchDashboard() {
+          const select = document.getElementById("areaSelect");
+          const iframe = document.getElementById("dashboard-frame");
+          const dashboards = {
+            Igatpuri: "https://lookerstudio.google.com/embed/reporting/a86f9811-8032-44cb-bbc1-d5e74fd11e58/page/aJ40E",
+            Anjaneri: "https://lookerstudio.google.com/embed/reporting/5a06ad27-9b76-472c-8b33-869379628db1/page/aJ40E"
+          };
+
+          if (select.value !== "default") {
+            iframe.src = dashboards[select.value];
+          }
+        }
+  </script>
+</body>
+</html>

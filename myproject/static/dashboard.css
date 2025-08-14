@@ -1,0 +1,168 @@
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(3, 119, 24);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    position: relative;
+}
+
+nav ul li a:hover {
+    color: rgb(3, 119, 24);
+}
+
+nav ul li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: rgb(3, 119, 24);
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Main Layout */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Filter Bar Styles */
+.filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 30px;
+    background: rgb(0, 45, 8);
+    color: rgb(0, 45, 8);
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1430px;
+}
+
+/* Optional: Adjust heading styling */
+.filter-bar h2 {
+    font-size: 24px;
+    color: rgb(3, 119, 24);
+    margin: 0;
+}
+
+/* Keep dropdowns aligned properly */
+.dropdowns select {
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 2px solid rgb(3, 119, 24);
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    min-width: 200px;
+}
+
+.dropdowns select:hover,
+.dropdowns select:focus {
+    border-color: rgb(2, 92, 19);
+    box-shadow: 0 0 5px rgba(3, 119, 24, 0.3);
+    outline: none;
+}
+
+
+/* Area Dropdown Only */
+#areaSelect {
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 2px solid rgb(3, 119, 24);
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    min-width: 200px;
+}
+
+#areaSelect:hover,
+#areaSelect:focus {
+    border-color: rgb(2, 92, 19);
+    box-shadow: 0 0 5px rgba(3, 119, 24, 0.3);
+    outline: none;
+}
+
+/* Iframe Styles */
+iframe#dashboard-frame {
+    width: 90%;
+    max-width: 1600px;
+    height: 900px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .filter-bar {
+        padding: 15px;
+    }
+
+    #areaSelect {
+        width: 100%;
+    }
+
+    iframe#dashboard-frame {
+        height: 500px;
+    }
+}

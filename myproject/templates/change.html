@@ -1,0 +1,117 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Change Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'change.css' %}">
+</head>
+<body>
+     <header>
+        <div class="navbar">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main' %}">ABOUT</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}">DASHBOARD</a></li>
+                        <li><a href="{% url 'dataset' %}">DATASET</a></li>
+                        <li><a href="{% url 'predict' %}">FOREST MONITORING</a></li>
+                        <li><a href="{% url 'report' %}">REPORT</a></li>
+                        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% else %}
+                        <li><a href="{% url 'auth' %}">LOGIN</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>🌳 Forest Change Tracker</h1>
+
+        <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{% url 'analyze_changes' %}" >
+            {% csrf_token %}
+            <!-- Date 1 -->
+             <div class="form-group">
+                <label class="upload-label">Year of Image 1</label>
+                <select name="date1" required>
+                    <option value="" disabled selected>Select Year</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
+            </div>
+
+            <!-- Image 1 Upload -->
+            <div class="form-group">
+                <label class="upload-label">Image 1 Upload (Earlier Date)</label>
+                <div class="upload-section" onclick="document.getElementById('file1').click()">
+                    <span class="leaf-icon">🌲</span>
+                    <p>Click to upload first image</p>
+                    <span class="upload-description">Accepts: .jpg, .png, .tif</span>
+                    <input type="file" id="file1" name="image1" accept=".jpg,.jpeg,.png,.tif" required>
+                    <div class="file-selected" id="file1-status"></div>
+                </div>
+            </div>
+
+
+
+             <!-- Date 2 -->
+            <div class="form-group">
+                <label class="upload-label">Year of Image 2</label>
+                <select name="date2" required>
+                    <option value="" disabled selected>Select Year</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
+            </div>
+            <!-- Image 2 Upload -->
+            <div class="form-group">
+                <label class="upload-label">Image 2 Upload (Later Date)</label>
+                <div class="upload-section" onclick="document.getElementById('file2').click()">
+                    <span class="leaf-icon">🌳</span>
+                    <p>Click to upload second image</p>
+                    <span class="upload-description">Accepts: .jpg, .png, .tif</span>
+                    <input type="file" id="file2" name="image2" accept=".jpg,.jpeg,.png,.tif" required>
+                    <div class="file-selected" id="file2-status"></div>
+                </div>
+            </div>
+
+            <!-- Optional Location -->
+            <div class="form-group">
+                <label class="upload-label">Region/Location Name <span class="required">*</span></label>
+                <select name="location" class="form-control" required>
+                    <option value="" selected hidden>Select forest area</option>
+                    <option value="anjaneri">Anjaneri</option>
+                    <option value="igatpuri">Igatpuri</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Analyze Forest Changes</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('file1').addEventListener('change', function(e) {
+            document.getElementById('file1-status').style.display = 'block';
+            document.getElementById('file1-status').textContent = 'Selected: ' + e.target.files[0].name;
+        });
+
+        document.getElementById('file2').addEventListener('change', function(e) {
+            document.getElementById('file2-status').style.display = 'block';
+            document.getElementById('file2-status').textContent = 'Selected: ' + e.target.files[0].name;
+        });
+    </script>
+<!--<script src="{% static '/change.js' %}"></script>-->
+</body>
+</html>

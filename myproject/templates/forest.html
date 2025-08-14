@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Insights</title>
+    <link rel="stylesheet" href="{% static 'forest.css' %}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main' %}">ABOUT</a></li>
+                   {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}">DASHBOARD</a></li>
+                        <li><a href="{% url 'dataset' %}">DATASET</a></li>
+                        <li><a href="{% url 'predict' %}">FOREST MONITORING</a></li>
+                        <li><a href="{% url 'report' %}">REPORT</a></li>
+                        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% else %}
+                        <li><a href="{% url 'auth' %}">LOGIN</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <img src="{% static 'images/time_series.png' %}" alt="Time Series Analysis">
+    </main>
+</body>
+</html>

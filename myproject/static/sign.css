@@ -1,0 +1,84 @@
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+/* Card Styles */
+.card {
+    width: 400px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Toggle Buttons */
+.toggle-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.toggle-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #e0e0e0;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+}
+
+.toggle-buttons button.active {
+    background: #015c07;
+    color: white;
+}
+
+/* Form Styles */
+.form {
+    display: none;
+}
+
+.form.active {
+    display: block;
+}
+
+form input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 10px;
+    background: #00420a;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+form p a {
+    color: #007bff;
+    text-decoration: none;
+}

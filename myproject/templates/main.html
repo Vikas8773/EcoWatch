@@ -1,0 +1,67 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Insights</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{% static 'images/logo.png' %}" alt="Hero Image">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main' %}">ABOUT</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}">DASHBOARD</a></li>
+                        <li><a href="{% url 'dataset' %}">DATASET</a></li>
+                        <li><a href="{% url 'predict' %}">FOREST MONITORING</a></li>
+                        <li><a href="{% url 'report' %}">REPORT</a></li>
+                        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% else %}
+                        <li><a href="{% url 'auth' %}">LOGIN</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-image-container">
+                <img src="{% static 'images/main.jpg' %}" alt="Orchard Vision" class="hero-image">
+                <div class="discover-btn">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'change' %}">Discover More</a>
+                    {% else %}
+                        <a href="{% url 'auth' %}">Login to Continue</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="row">
+                <div class="image">
+                    <img src="{% static 'images/for.jpg' %}" alt="About Us">
+                </div>
+                <div class="content">
+                    <h2>ABOUT US</h2>
+                    <p>Forest management using GIS (Geographic Information Systems) integrates advanced tools to monitor and enhance sustainable practices. GIS aids in carbon sequestration assessment by mapping forest carbon stocks and evaluating potential for carbon storage. It enables change detection by analyzing satellite imagery and historical data to identify variations in forest cover, biodiversity, and health over time. This approach supports efforts to monitor and mitigate deforestation by pinpointing affected areas and the rate of forest loss. By overlaying data layers, GIS provides insights into land-use changes, supports reforestation planning, and enhances carbon credit programs. Its use in forest management ensures data-driven decisions for conservation and combating climate change.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="content">
+                    <h2>SATELLITE IMAGERY</h2>
+                    <p>Satellite mapping of forests leverages high-resolution imagery to monitor and manage forest ecosystems effectively. Sentinel-2, part of the Copernicus program, provides multispectral images with a 10-meter resolution, ideal for detecting vegetation health, forest cover, and changes in biomass. Similarly, Landsat data, with a decades-long archive, is instrumental in tracking long-term forest dynamics and deforestation trends. Both satellites support applications such as carbon stock estimation, biodiversity assessment, and identifying illegal logging activities. Their multispectral capabilities enable accurate classification of forest types and health monitoring. The integration of Sentinel-2 and Landsat data enhances precision in forest management, helping policymakers and conservationists make informed decisions to protect these vital ecosystems.</p>
+                </div>
+                <div class="image">
+                    <img src="{% static 'images/satellite.jpg' %}" alt="Apple Orchards">
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

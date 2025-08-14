@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dataset</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'dataset.css' %}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main' %}">ABOUT</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}">DASHBOARD</a></li>
+                        <li><a href="{% url 'dataset' %}">DATASET</a></li>
+                        <li><a href="{% url 'predict' %}">FOREST MONITORING</a></li>
+                        <li><a href="{% url 'report' %}">REPORT</a></li>
+                        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% else %}
+                        <li><a href="{% url 'auth' %}">LOGIN</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>🌳 Dataset</h1>
+
+        <!-- Filter Bar -->
+        <section class="filter-bar">
+            <h2>| CHANGE DETECTION</h2>
+            <select id="areaSelect" onchange="updateImages()">
+                <option value="Igatpuri" selected>Igatpuri</option>
+                <option value="Anjaneri">Anjaneri</option>
+            </select>
+        </section>
+
+        <!-- Images Grid -->
+        <div class="image-grid" id="imageGrid">
+            <!-- Images will be loaded here by JS -->
+        </div>
+    </div>
+
+    <script>
+    const baseBasePath = "{% static 'Heatmap Visualization Data' %}";
+
+    const images = {
+        Igatpuri: [
+            "Igatpuri-2019.png",
+            "Igatpuri-2020.png",
+            "Igatpuri-2021.png",
+            "Igatpuri-2022.png",
+            "Igatpuri-2023.png",
+            "Igatpuri-2024.png",
+        ],
+        Anjaneri: [
+            "Anjaneri-2019.png",
+            "Anjaneri-2020.png",
+            "Anjaneri-2021.png",
+            "Anjaneri-2022.png",
+            "Anjaneri-2023.png",
+            "Anjaneri-2024.png",
+        ],
+    };
+
+    function updateImages() {
+        const area = document.getElementById("areaSelect").value;
+        const imageGrid = document.getElementById("imageGrid");
+        imageGrid.innerHTML = "";
+
+        if (!images[area]) return;
+
+        images[area].forEach((imgName, idx) => {
+            const card = document.createElement("div");
+            card.classList.add("image-card");
+
+            const img = document.createElement("img");
+            img.src = baseBasePath + "/" + area + "/" + imgName;
+            img.alt = `${area} Image ${idx + 1}`;
+
+            const label = document.createElement("div");
+            label.classList.add("image-label");
+
+            const yearMatch = imgName.match(/\d{4}/);
+            const year = yearMatch ? yearMatch[0] : `Year ${idx + 1}`;
+            label.textContent = `${year}`;
+
+            card.appendChild(img);
+            card.appendChild(label);
+            imageGrid.appendChild(card);
+        });
+    }
+
+    window.onload = updateImages;
+</script>
+
+</body>
+</html>

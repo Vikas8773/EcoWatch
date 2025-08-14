@@ -1,0 +1,148 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Insights - Dashboard</title>
+    <link rel="stylesheet" href="{% static 'predict.css' %}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{% static 'images/logo.png' %}" alt="Hero Image">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main' %}">ABOUT</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}">DASHBOARD</a></li>
+                        <li><a href="{% url 'dataset' %}">DATASET</a></li>
+                        <li><a href="{% url 'predict' %}">FOREST MONITORING</a></li>
+                        <li><a href="{% url 'report' %}">REPORT</a></li>
+                        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% else %}
+                        <li><a href="{% url 'auth' %}">LOGIN</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="filter-bar">
+            <h2>| CHANGE DETECTION</h2>
+            <div class="dropdowns">
+                <select id="areaSelect" onchange="updateData()">
+                    <option value="default">Choose Area</option>
+                    <option value="Igatpuri" selected>Igatpuri</option>
+                    <option value="Anjaneri">Anjaneri</option>
+                </select>
+                <select id="yearSelect" onchange="updateData()">
+                    <option value="default">Choose Year</option>
+                    <option value="2019-2024" selected>2019-2024</option>
+                    <option value="2019-2020">2019-2020</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="card" id="vegetation">🌿 Vegetation Gain: <br> <strong>7.35 sq km</strong></div>
+            <div class="card" id="deforestation">🔥 Deforestation Loss: <br> <strong>5.70 sq km</strong></div>
+            <div class="card" id="water">💧 Water Bodies: <br> <strong>1.03 sq km</strong></div>
+            <div class="card" id="noChange">⚪ No Change: <br> <strong>48.27 sq km</strong></div>
+        </section>
+
+        <section class="image-row">
+            <div class="image-container">
+                <div class="image-label">Before Change (<span id="beforeYear">2019</span>)</div>
+                <img id="beforeImage" src="{% static 'images/2019_1.png' %}" alt="Before Change">
+            </div>
+            <div class="image-container">
+                <div class="image-label">After Change (<span id="afterYear">2024</span>)</div>
+                <img id="afterImage" src="{% static 'images/2024_1.png' %}" alt="After Change">
+            </div>
+            <div class="image-container">
+                <div class="image-label">Overall Change Map</div>
+                <img id="changeMap" src="{% static 'images/output_2.png' %}" alt="Overall Change Map">
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const data = {
+            "Igatpuri": {
+                "2019-2024": {
+                    vegetation: "5.27 sq km",
+                    deforestation: "2.65 sq km",
+                    water: "1.03 sq km",
+                    noChange: "53.41 sq km",
+                    beforeYear: "2019",
+                    afterYear: "2024",
+                    beforeImage: "{% static 'images/2019_1.png' %}",
+                    afterImage: "{% static 'images/2024_1.png' %}",
+                    changeMap: "{% static 'images/output_2.png' %}"
+                },
+                "2019-2020": {
+                    vegetation: "2.40 sq km",
+                    deforestation: "1.32 sq km",
+                    water: "1.51 sq km",
+                    noChange: "57.12 sq km",
+                    beforeYear: "2019",
+                    afterYear: "2020",
+                    beforeImage: "{% static 'images/2019_1.png' %}",
+                    afterImage: "{% static 'images/2020_1.png' %}",
+                    changeMap: "{% static 'images/output_1.png' %}"
+                }
+            },
+            "Anjaneri": {
+                "2019-2024": {
+                    vegetation: "2.89 sq km",
+                    deforestation: "0.96 sq km",
+                    water: "0.00 sq km",
+                    noChange: "16.10 sq km",
+                    beforeYear: "2019",
+                    afterYear: "2024",
+                    beforeImage: "{% static 'images/2019-1A.png' %}",
+                    afterImage: "{% static 'images/2024-1A.png' %}",
+                    changeMap: "{% static 'images/Anjaneri-2019-24.png' %}"
+                },
+                "2019-2020": {
+                    vegetation: "1.00 sq km",
+                    deforestation: "0.75 sq km",
+                    water: "0.00 sq km",
+                    noChange: "18.20 sq km",
+                    beforeYear: "2019",
+                    afterYear: "2020",
+                    beforeImage: "{% static 'images/2019-1A.png' %}",
+                    afterImage: "{% static 'images/2020-1A.png' %}",
+                    changeMap: "{% static 'images/Anjaner_2019-20.png' %}"
+                }
+            }
+        };
+
+        function updateData() {
+            const area = document.getElementById("areaSelect").value;
+            const year = document.getElementById("yearSelect").value;
+
+            if (area === "default" || year === "default") return;
+
+            const areaData = data[area][year];
+
+            document.getElementById("vegetation").innerHTML = `🌿 Vegetation Gain: <br> <strong>${areaData.vegetation}</strong>`;
+            document.getElementById("deforestation").innerHTML = `🔥 Deforestation Loss: <br> <strong>${areaData.deforestation}</strong>`;
+            document.getElementById("water").innerHTML = `💧 Water Bodies: <br> <strong>${areaData.water}</strong>`;
+            document.getElementById("noChange").innerHTML = `⚪ No Change: <br> <strong>${areaData.noChange}</strong>`;
+
+            document.getElementById("beforeYear").innerText = areaData.beforeYear;
+            document.getElementById("afterYear").innerText = areaData.afterYear;
+
+            document.getElementById("beforeImage").src = areaData.beforeImage;
+            document.getElementById("afterImage").src = areaData.afterImage;
+            document.getElementById("changeMap").src = areaData.changeMap;
+        }
+
+        window.onload = updateData;
+    </script>
+</body>
+</html>

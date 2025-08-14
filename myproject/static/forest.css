@@ -1,0 +1,114 @@
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    position: relative; /* Required for the underline effect */
+}
+
+/* Hover Effect */
+nav ul li a:hover {
+    color: rgb(3, 119, 24); /* Text turns red */
+}
+
+nav ul li a::after {
+    content: ''; /* Creates the underline */
+    display: block;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background: rgb(3, 119, 24);
+    transition: width 0.3s ease; /* Smooth animation for the underline */
+    position: absolute;
+    bottom: -2px; /* Adjust spacing between text and underline */
+    left: 0;
+}
+
+nav ul li a:hover::after {
+    width: 100%; /* Underline expands fully on hover */
+}
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px); /* Adjust based on navbar height */
+    padding: 20px;
+}
+
+main img {
+    width: 100%;
+    height: auto;
+    max-width: 90vw; /* Ensures some margin on sides */
+    max-height: 90vh; /* Ensures some margin on top/bottom */
+    object-fit: contain;
+    border-radius: 10px; /* Optional: Adds rounded corners */
+}

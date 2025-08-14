@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="{% static '/sign.css' %}" />
+  </head>
+  <body>
+    <div class="card">
+      <div class="toggle-buttons">
+        <button id="login-toggle" class="active" onclick="showLogin()">
+          Login
+        </button>
+        <button id="signup-toggle" onclick="showSignup()">Signup</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-form" class="form active">
+        <h2>Login</h2>
+        <form method="post" action="{% url 'auth' %}">
+          {% csrf_token %} {{ login_form.as_p }}
+          <button type="submit" name="login_submit" class="action-btn">
+            Login
+          </button>
+        </form>
+        <p>
+          Not registered? <a href="#" onclick="showSignup()">Sign up here</a>
+        </p>
+      </div>
+
+      <!-- Signup Form -->
+      <div id="signup-form" class="form">
+        <h2 style="font-weight: bold">SIGNUP</h2>
+        <form method="post" action="{% url 'auth' %}">
+          {% csrf_token %}
+          {% for field in signup_form %}
+              {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+              {% endfor %}
+          {% endfor %}
+
+          <input type="text" name="username" placeholder="Username" required />
+          <input
+            type="text"
+            name="full_name"
+            placeholder="Full Name"
+            required
+          />
+          <input type="text" name="mobile" placeholder="Mobile No" required />
+          <input type="text" name="location" placeholder="Location" required />
+          <input
+            type="password"
+            name="password1"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="password"
+            name="password2"
+            placeholder="Confirm Password"
+            required
+          />
+
+          <button type="submit" name="signup_submit" class="action-btn">
+            Signup
+          </button>
+        </form>
+
+        <p>
+          Already registered? <a href="#" onclick="showLogin()">Login here</a>
+        </p>
+      </div>
+    </div>
+
+    <script src="{% static '/sign.js' %}"></script>
+  </body>
+</html>

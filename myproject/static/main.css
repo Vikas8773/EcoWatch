@@ -1,0 +1,151 @@
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    position: relative; /* Required for the underline effect */
+}
+
+/* Hover Effect */
+nav ul li a:hover {
+    color: rgb(3, 119, 24); /* Text turns red */
+}
+
+nav ul li a::after {
+    content: ''; /* Creates the underline */
+    display: block;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background: rgb(3, 119, 24);
+    transition: width 0.3s ease; /* Smooth animation for the underline */
+    position: absolute;
+    bottom: -2px; /* Adjust spacing between text and underline */
+    left: 0;
+}
+
+nav ul li a:hover::after {
+    width: 100%; /* Underline expands fully on hover */
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 90vh; /* Adjust the height to be 90% of the viewport */
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+    display: block;
+}
+/*
+.discover-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+*/
+.discover-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* ✅ Perfectly centers the button */
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.discover-btn a {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Info Section */
+.info-section {
+    padding-top: 50px;
+    width: calc(100% - 80px); /* Account for margins */
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 40px;
+    align-items: stretch;
+}
+
+.row.reverse {
+    flex-direction: row-reverse;
+}
+
+.row .image, .row .content {
+    flex: 1;
+}
+
+.row .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.row .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.row .content h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.row .content p {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify; 
+}

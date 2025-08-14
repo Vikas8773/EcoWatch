@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Analysis Results</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f4ea 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        h1 {
+            color: #2d6a4f;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .image-comparison {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .image-card {
+            flex: 1;
+            text-align: center;
+            background: #f8fbf9;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #c8e6c9;
+        }
+
+        .image-label {
+            color: #2d6a4f;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .vegetation { background: #e8f5e9; color: #2d6a4f; }
+        .deforestation { background: #ffebee; color: #c62828; }
+        .water { background: #e3f2fd; color: #1565c0; }
+        .no-change { background: #f5f5f5; color: #616161; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .image-comparison {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌳 Forest Analysis Results</h1>
+
+        <!-- Image Comparison Section -->
+        <div class="image-comparison">
+            <div class="image-card">
+                <div class="image-label">Earlier Image (2019)</div>
+                <img src="{% static 'images/2019_1.png' %}" alt="Earlier Image">
+            </div>
+
+            <div class="image-card">
+                <div class="image-label">Later Image (2024)</div>
+                <img src="{% static 'images/2024_1.png' %}" alt="Later Image">
+            </div>
+
+            <div class="image-card">
+                <div class="image-label">Change Detection</div>
+                <img src="{% static 'images/output_2.png' %}" alt="Result Map">
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card vegetation">
+                <div class="stat-icon">🌿</div>
+                <div class="stat-title">Vegetation Gain</div>
+                <div class="stat-value">52651 pixels</div>
+                <div>(5.27 sq km)</div>
+            </div>
+
+            <div class="stat-card deforestation">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-title">Deforestation Loss</div>
+                <div class="stat-value">26458 pixels</div>
+                <div>(2.65 sq km)</div>
+            </div>
+
+            <div class="stat-card water">
+                <div class="stat-icon">💧</div>
+                <div class="stat-title">Water Bodies</div>
+                <div class="stat-value">10329 pixels</div>
+                <div>(1.03 sq km)</div>
+            </div>
+
+            <div class="stat-card no-change">
+                <div class="stat-icon">⚪</div>
+                <div class="stat-title">No Change</div>
+                <div class="stat-value">534072 pixels</div>
+                <div>(53.41 sq km)</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
