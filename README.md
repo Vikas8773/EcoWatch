@@ -69,11 +69,14 @@ python manage.py runserver
 ---
 ## 📂 Project Structure
 ``` bash
-├── myproject/                # Main Django project folder
-├── static/                   # CSS, JS, and static assets
-├── templates/                # HTML templates
-├── requirements.txt          # Dependencies
-├── manage.py                  # Django management script
+├── myproject/                # Main project root folder
+│   ├── media/                 # Uploaded files and images
+│   ├── myapp/                 # Django application folder
+│   ├── myproject/             # Django settings and configuration
+│   ├── static/                # CSS, JS, and static assets
+│   ├── templates/             # HTML templates
+│   ├── requirements.txt       # Project dependencies
+│   └── manage.py              # Django management script
 └── README.md                  # Project documentation
 ```
 ---
